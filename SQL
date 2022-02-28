@@ -1,0 +1,36 @@
+
+SELECT COUNT(*)
+FROM Shippers as s
+LEFT JOIN Orders as o
+ON s.ShipperID = o.ShipperID
+WHERE ShipperName = "Speedy Express"
+
+Q: How many orders were shipped by Speedy Express in total?
+54
+
+SELECT e.LastName, COUNT(DISTINCT o.OrderID) as num_of_orders
+FROM Employees as e
+LEFT JOIN Orders as o
+ON e.EmployeeID = o.EmployeeID
+GROUP BY e.EmployeeID
+ORDER BY num_of_orders DESC
+LIMIT 1
+
+Q: What is the last name of the employee with the most orders?
+Peacock 40
+
+SELECT p.ProductName, od.OrderID, SUM(od.Quantity) as Total_Quantity, o.CustomerID, c.Country
+FROM Products as p
+LEFT JOIN OrderDetails as od
+ON p.ProductID = od.ProductID
+LEFT JOIN Orders as o
+ON od.OrderID = o.OrderID
+LEFT JOIN Customers as c
+ON o.CustomerID = c.CustomerID
+WHERE c.Country = "Germany"
+GROUP BY p.ProductName
+ORDER BY Total_Quantity DESC
+LIMIT 1
+
+What product was ordered the most by customers in Germany?
+Boston Crab Meat 160
